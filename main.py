@@ -13,8 +13,8 @@ from config import (
 
 
 with TelegramClient(SESSION_NAME, API_ID, API_HASH) as client:
-    for dialog in client.iter_dialogs():
-        print(dialog.title, dialog.id)
+    # for dialog in client.iter_dialogs():
+    #     print(dialog.title, dialog.id)
 
     @client.on(events.NewMessage(chats=(BARAHOLKA_ID)))
     async def handler(event):
