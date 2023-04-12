@@ -1,0 +1,11 @@
+telegram_client:
+  api_id: 0 # show on https://my.telegram.org/apps
+  api_hash: 0 # show on https://my.telegram.org/apps
+  session_name: chats_reader
+
+baraholka:
+  chat_id: -1 #
+  allowed_words:
+    - "пафос"
+    - "paphos"
+  forward_chat_id: -2
