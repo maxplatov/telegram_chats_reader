@@ -5,6 +5,7 @@ telegram_client:
 
 baraholka:
   chat_id: -1 #
+  link: "https://t.me/CypRusSale"
   allowed_words:
     - "пафос"
     - "paphos"

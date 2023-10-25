@@ -16,5 +16,6 @@ API_HASH = CONFIG["telegram_client"].get("api_hash")
 SESSION_NAME = CONFIG["telegram_client"].get("session_name")
 
 BARAHOLKA_ID = CONFIG["baraholka"].get("chat_id")
+BARAHOLKA_LINK = CONFIG["baraholka"].get("link")
 BARAHOLKA_ALLOWED_WORDS = set(CONFIG["baraholka"].get("allowed_words"))
 BARAHOLKA_FORWARD_CHAT_ID = CONFIG["baraholka"].get("forward_chat_id")

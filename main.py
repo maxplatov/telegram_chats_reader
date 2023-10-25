@@ -7,6 +7,7 @@ from config import (
     API_HASH,
     SESSION_NAME,
     BARAHOLKA_ID,
+    BARAHOLKA_LINK,
     BARAHOLKA_ALLOWED_WORDS,
     BARAHOLKA_FORWARD_CHAT_ID,
 )
@@ -21,7 +22,9 @@ with TelegramClient(SESSION_NAME, API_ID, API_HASH) as client:
         try:
             words = set(re.findall(r'\w+|[^\s\w]+', event.message.to_dict()['message'].lower()))
             if words.intersection(BARAHOLKA_ALLOWED_WORDS):
-                await client.forward_messages(BARAHOLKA_FORWARD_CHAT_ID, event.message)
+                await client.send_message(
+                    BARAHOLKA_FORWARD_CHAT_ID, BARAHOLKA_LINK + f"/{event.message.id}"
+                )
         except Exception:
             pass
 
