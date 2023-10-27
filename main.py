@@ -1,5 +1,3 @@
-import re
-
 from telethon.sync import TelegramClient, events
 
 from config import (
@@ -20,8 +18,8 @@ with TelegramClient(SESSION_NAME, API_ID, API_HASH) as client:
     @client.on(events.NewMessage(chats=(BARAHOLKA_ID)))
     async def handler(event):
         try:
-            words = set(re.findall(r'\w+|[^\s\w]+', event.message.to_dict()['message'].lower()))
-            if words.intersection(BARAHOLKA_ALLOWED_WORDS):
+            msg = event.message.to_dict()['message'].lower()
+            if any(word in msg for word in BARAHOLKA_ALLOWED_WORDS):
                 await client.send_message(
                     BARAHOLKA_FORWARD_CHAT_ID, BARAHOLKA_LINK + f"/{event.message.id}"
                 )
