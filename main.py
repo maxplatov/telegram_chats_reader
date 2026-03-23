@@ -1,29 +1,31 @@
-from telethon.sync import TelegramClient, events
+import asyncio
 
-from config import (
-    API_ID,
-    API_HASH,
-    SESSION_NAME,
-    BARAHOLKA_ID,
-    BARAHOLKA_LINK,
-    BARAHOLKA_ALLOWED_WORDS,
-    BARAHOLKA_FORWARD_CHAT_ID,
-)
+from telethon import TelegramClient, events
+
+from config import API_ID, API_HASH, SESSION_NAME, FORWARD_CHAT_ID, CHANNELS
 
 
-with TelegramClient(SESSION_NAME, API_ID, API_HASH) as client:
-    # for dialog in client.iter_dialogs():
-    #     print(dialog.title, dialog.id)
+async def main():
+    client = TelegramClient(SESSION_NAME, API_ID, API_HASH)
+    await client.start()
 
-    @client.on(events.NewMessage(chats=(BARAHOLKA_ID)))
-    async def handler(event):
-        try:
-            msg = event.message.to_dict()['message'].lower()
-            if any(word in msg for word in BARAHOLKA_ALLOWED_WORDS):
-                await client.send_message(
-                    BARAHOLKA_FORWARD_CHAT_ID, BARAHOLKA_LINK + f"/{event.message.id}"
-                )
-        except Exception:
-            pass
+    for channel in CHANNELS:
+        chat_id = channel["chat_id"]
+        link = channel["link"]
+        allowed_words = channel["allowed_words"]
 
-    client.run_until_disconnected()
+        @client.on(events.NewMessage(chats=chat_id))
+        async def handler(event, _link=link, _words=allowed_words):
+            try:
+                msg = event.message.message.lower()
+                if any(word in msg for word in _words):
+                    await client.send_message(
+                        FORWARD_CHAT_ID, _link + f"/{event.message.id}"
+                    )
+            except Exception:
+                pass
+
+    await client.run_until_disconnected()
+
+
+asyncio.run(main())

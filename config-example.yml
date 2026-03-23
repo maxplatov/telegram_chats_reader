@@ -3,10 +3,16 @@ telegram_client:
   api_hash: 0 # show on https://my.telegram.org/apps
   session_name: chats_reader
 
-baraholka:
-  chat_id: -1 #
-  link: "https://t.me/CypRusSale"
-  allowed_words:
-    - "пафос"
-    - "paphos"
-  forward_chat_id: -2
+forward_chat_id: -2 # single destination chat for all notifications
+
+channels:
+  - chat_id: -1
+    link: "https://t.me/CypRusSale"
+    allowed_words:
+      - "пафос"
+      - "paphos"
+  - chat_id: -3
+    link: "https://t.me/AnotherChannel"
+    allowed_words:
+      - "лимассол"
+      - "limassol"
